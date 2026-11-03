@@ -1,0 +1,17 @@
+# Netlify deploys ONLY the React frontend (client/).
+# The backend (Express + Yjs WebSockets + Docker) must run on a server/VM -
+# see "Deployment" in README.md. Set VITE_BACKEND_URL in Netlify's site settings.
+
+[build]
+  base    = "client"          # run the build inside client/
+  command = "npm run build"
+  publish = "dist"            # relative to base -> client/dist
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Single-page app: serve index.html for every path so /room/<id> links work
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200

@@ -1,0 +1,14 @@
+# Caddy reverse proxy for the CodeSync backend.
+# - Gets and renews a free HTTPS certificate automatically (Let's Encrypt).
+# - Proxies HTTP AND WebSockets (/yjs, /events) to the Node server - no extra config needed.
+#
+# Install on the VM:  sudo apt install -y caddy
+# Use:                sudo cp deploy/Caddyfile /etc/caddy/Caddyfile   (edit the domain first)
+#                     sudo systemctl reload caddy
+#
+# Replace api.example.com with your domain. Its DNS "A" record must point to this VM,
+# and ports 80 + 443 must be open in the VM's firewall.
+
+api.example.com {
+	reverse_proxy localhost:4000
+}

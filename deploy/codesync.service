@@ -1,0 +1,27 @@
+# systemd service: keeps the CodeSync backend running and restarts it on crash/reboot.
+#
+# Install on the VM (adjust User and paths if different):
+#   sudo cp deploy/codesync.service /etc/systemd/system/codesync.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now codesync
+# Logs:
+#   journalctl -u codesync -f
+
+[Unit]
+Description=CodeSync backend (Express + Yjs + Docker runner)
+After=network-online.target docker.service
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+User=codesync
+WorkingDirectory=/opt/codesync/server
+ExecStart=/usr/bin/node src/index.js
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+# Settings (PORT, MONGO_URI, CLIENT_ORIGIN, ...) are read from /opt/codesync/server/.env
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+{
+  "name": "codesync-server",
+  "version": "1.0.0",
+  "description": "Express + Yjs + MongoDB backend that syncs code between users and runs it in Docker",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --watch src src/index.js",
+    "pull-images": "node scripts/pullImages.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1",
+    "ws": "^8.18.0",
+    "y-websocket": "1.5.4",
+    "yjs": "^13.6.20"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
